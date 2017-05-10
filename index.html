@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Angular</title>
     <link rel="stylesheet" href="./lib/bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"
     <link rel="stylesheet" href="./styles/main.css" type="text/css">
 </head>
 
@@ -31,27 +32,53 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
     <div ng-controller="ItemCtrl">
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <button class="col-xs-6 btn btn-sucess" ng-click="newItem()">New Item</button>
-        <button class="col-xs-6 btn btn-sucess" ng-click="allItem()">All Item</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <h1>NG Todo</h1>
-        <div ng-show="!showListView">
-          <h3>New Todo</h3>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <button class="col-xs-6 btn btn-sucess" ng-click="newItem()">New Item</button>
+                <button class="col-xs-6 btn btn-sucess" ng-click="allItem()">All Item</button>
+            </div>
         </div>
-        <div ng-show="showListView">
-          <h3>Todo List</h3>
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <h1>NG Todo</h1>
+                <div ng-show="!showListView">
+                    <h3>New Todo</h3>
+                </div>
+                <div ng-show="showListView">
+                    <h3>Todo</h3>
+                    <div ng-repeat="item in items | filter:{isCompleted:false}">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-xs-1">
+                                    <input type="checkbox" name="" ng-checked="item.isCompleted" />
+                                </div>
+                                <div class="col-xs-7">{{item.task}}</div>
+                                <div class="col-xs-1 col-xs-offset-2">{{item.assignedTo}}</div>
+                                <div class="col-xs-1">
+                                    <button class="btn btn-danger fa fa-trash-o"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Completed</h3>
+                    <div ng-repeat="item in items | filter:{isCompleted:true}">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="col-xs-1">
+                                    <input type="checkbox" name="" ng-checked="item.isCompleted" />
+                                </div>
+                                <div class="col-xs-7">{{item.task}}</div>
+                                <div class="col-xs-1  col-xs-offset-2">{{item.assignedTo}}</div>
+                                <div class="col-xs-1">
+                                    <button class="btn btn-danger fa fa-trash-o"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-
     </div>
     <script src="./lib/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
     <script src="./lib/bower_components/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
