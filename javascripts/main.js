@@ -40,13 +40,44 @@ app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
 
     let getItems = () => {
         getItemList().then((itemz) => {
-            console.log("itemz", itemz);
+        $scope.items = itemz;
         }).catch((error) => {
             console.log("get Error", error);
         });
     };
 
     getItems();
+
+    let postNewItem = (newItem) => {
+        return $q((resolve, reject) => {
+            $http.post(`${FIREBASE_CONFIG.databaseURL}/items.json`, JSON.stringify(newItem)) //where to post and what to post
+                .then((resultz) => {
+                    resolve(resultz);
+                }).catch((error) => {
+                    reject(error);
+                });
+        });
+    };
+
+
+    $scope.addNewItem = () => {
+
+      $scope.newTask.isCompleted = false;
+      postNewItem($scope.newTask).then((response) => {
+        $scope.newTask = {};
+        $scope.showListView = true;
+        getItems();
+      }).catch((error) => {
+        console.log("Add error", error);
+      });
+    };
+
+
+
+
+
+
+
 
 
 
