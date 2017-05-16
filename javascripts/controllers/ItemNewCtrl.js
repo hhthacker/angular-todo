@@ -1,10 +1,10 @@
-app.controller("ItemNewCtrl", function($http, $q, $scope, FIREBASE_CONFIG) {
+app.controller("ItemNewCtrl", function($http, $location, $q, $scope, FIREBASE_CONFIG, ItemFactory) {
     $scope.addNewItem = () => {
         $scope.newTask.isCompleted = false;
-        postNewItem($scope.newTask).then((response) => {
+        ItemFactory.postNewItem($scope.newTask).then((response) => {
             $scope.newTask = {};
-            //switch views
-        }).catch((error) => {
+			$location.url("/items/list");
+	        }).catch((error) => {
             console.log("Add error", error);
         });
     };
