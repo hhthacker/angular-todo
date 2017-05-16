@@ -1,8 +1,8 @@
-app.run((FIREBASE_CONFIG) => {
+app.run(function(FIREBASE_CONFIG) {
     firebase.initializeApp(FIREBASE_CONFIG);
 });
 
-app.config(($routeProvider) => {
+app.config(function($routeProvider) {
     $routeProvider
         .when('/items/list', {
             templateUrl: 'partials/item-list.html',
@@ -19,34 +19,46 @@ app.config(($routeProvider) => {
         })
         .when('/item/edit/:id', {
             templateUrl: 'partials/item-new.html',
-            controller: 'ItemEdit77Ctrl'
+            controller: 'ItemEditCtrl'
         })
         .otherwise('/items/list');
 });
 
-app.controller("NavCtrl", ($scope) => {
+app.controller("NavCtrl", function($scope) {
     $scope.cat = "Meow";
     $scope.navItems = [{ name: "Logout" }, { name: "All Items" }, { name: "New Item" }];
 });
 
-app.controller("ItemListCtrl", () => {
+app.controller("ItemListCtrl", function() {
     console.log("inside ItemListCtrl");
 });
 
-app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
+app.controller("ItemNewCtrl", function() {
+    console.log("inside ItemNewCtrl");
+});
+
+app.controller("ItemViewCtrl", function() {
+    console.log("inside ItemViewCtrl");
+});
+
+app.controller("ItemEditCtrl", function() {
+    console.log("inside ItemEditCtrl");
+});
+
+app.controller("ItemCtrl", function($http, $q, $scope, FIREBASE_CONFIG) {
     $scope.dog = "Woof";
     $scope.showListView = true;
     $scope.items = [];
 
-    $scope.newItem = () => {
+    $scope.newItem = function() {
         $scope.showListView = false;
     };
 
-    $scope.allItem = () => {
+    $scope.allItem = function() {
         $scope.showListView = true;
     };
 
-    let getItemList = () => {
+    var getItemList = function() {
         let itemz = [];
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE_CONFIG.databaseURL}/items.json`)
@@ -64,7 +76,7 @@ app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
         });
     };
 
-    let getItems = () => {
+    var getItems = function() {
         getItemList().then((itemz) => {
         $scope.items = itemz;
         }).catch((error) => {
@@ -74,7 +86,7 @@ app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
 
     getItems();
 
-    let postNewItem = (newItem) => {
+    var postNewItem = function(newItem) {
         return $q((resolve, reject) => {
             $http.post(`${FIREBASE_CONFIG.databaseURL}/items.json`, JSON.stringify(newItem)) //where to post and what to post
                 .then((resultz) => {
@@ -97,16 +109,6 @@ app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
         console.log("Add error", error);
       });
     };
-
-
-
-
-
-
-
-
-
-
 
 
 
