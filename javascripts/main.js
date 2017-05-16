@@ -2,9 +2,35 @@ app.run((FIREBASE_CONFIG) => {
     firebase.initializeApp(FIREBASE_CONFIG);
 });
 
+app.config(($routeProvider) => {
+    $routeProvider
+        .when('/items/list', {
+            templateUrl: 'partials/item-list.html',
+            controller: 'ItemListCtrl'
+        })
+        .when('/items/new', {
+            templateUrl: 'partials/item-new.html',
+            controller: 'ItemNewCtrl'
+
+        })
+        .when('/item/view/:id', {
+            templateUrl: 'partials/item-view.html',
+            controller: 'ItemViewCtrl'
+        })
+        .when('/item/edit/:id', {
+            templateUrl: 'partials/item-new.html',
+            controller: 'ItemEdit77Ctrl'
+        })
+        .otherwise('/items/list');
+});
+
 app.controller("NavCtrl", ($scope) => {
     $scope.cat = "Meow";
     $scope.navItems = [{ name: "Logout" }, { name: "All Items" }, { name: "New Item" }];
+});
+
+app.controller("ItemListCtrl", () => {
+    console.log("inside ItemListCtrl");
 });
 
 app.controller("ItemCtrl", ($http, $q, $scope, FIREBASE_CONFIG) => {
