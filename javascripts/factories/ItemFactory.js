@@ -4,7 +4,7 @@ app.factory("ItemFactory", function($http, $q, FIREBASE_CONFIG) {
         return $q((resolve, reject) => {
             $http.get(`${FIREBASE_CONFIG.databaseURL}/items.json`)
                 .then((fbItems) => {
-                    var itemCollection = fbItems.data;
+                    let itemCollection = fbItems.data;
                     if(itemCollection !== null ) {
                     Object.keys(itemCollection).forEach((key) => {
                         itemCollection[key].id = key;
@@ -16,6 +16,18 @@ app.factory("ItemFactory", function($http, $q, FIREBASE_CONFIG) {
                 .catch((error) => {
                     reject(error);
                 });
+        });
+    };
+
+    let getSingleItem = (id) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FIREBASE_CONFIG.databaseURL}/items/${id}.json`)
+            .then((resultz) => {
+                resultz.data.id = id;
+                resolve(resultz);
+            }).catch((error) => {
+                reject(error);
+            });
         });
     };
 
@@ -60,5 +72,5 @@ app.factory("ItemFactory", function($http, $q, FIREBASE_CONFIG) {
 
 
 
-    return {getItemList:getItemList, postNewItem:postNewItem, deletz:deletz, editItem:editItem};
+    return {getItemList:getItemList, postNewItem:postNewItem, deletz:deletz, editItem:editItem, getSingleItem:getSingleItem};
 });
