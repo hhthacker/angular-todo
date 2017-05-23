@@ -1,5 +1,5 @@
 h1 {
-  color: #39CCCC;
+  color: #32FF65;
   font-weight: 900; }
 
 body {
@@ -11,5 +11,8 @@ body {
   background-size: cover; }
 
 h3 {
-  color: #B10DC9;
+  color: #E8E116;
   font-weight: 800; }
+
+.opacity {
+  opacity: 0.9; }
