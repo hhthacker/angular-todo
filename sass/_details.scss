@@ -1,7 +1,7 @@
 @import "colors";
 
 h1 {
-	color: $teal;
+	color: $lime;
 	font-weight: 900;
 }
 
@@ -15,6 +15,10 @@ body {
 }
 
 h3 {
-	color: $purple;
+	color: $lemon;
 	font-weight: 800;
+}
+
+.opacity {
+	opacity: 0.9;
 }
