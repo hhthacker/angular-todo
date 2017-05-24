@@ -1,4 +1,5 @@
 app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, UserFactory){
+	$scope.alerts = [];
 	$scope.auth = {
 		email: "a@a.com",
 		password: "111111"
@@ -14,9 +15,9 @@ app.controller("AuthCtrl", function($location, $rootScope, $scope, AuthFactory, 
 		AuthFactory.authenticate($scope.auth).then((userCreds) => {
 			return UserFactory.getUser(userCreds.uid);
 		}, (error) => {
+			$scope.alerts.push({msg: error.message});
 			console.log("authenticate error", error);
 		}).then((user) => {
-			console.log("user", user);
 			$rootScope.user = user;
 			$location.url('/items/list');
 		}).catch((error) => {
